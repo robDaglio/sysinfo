@@ -1,33 +1,48 @@
+# ======================================================|
+# Program Name: sysinfo
+# Author: Rob Daglio
+# Last Updated: 10_11_2019
+# Descript: Simple system information gathering script
+#========================================================|
+
 #!/usr/bin/env python
-import os, time, sys, platform
+import os
+from platform import uname
+from time import sleep
 
 def system_info():
 
-	criteria = ['Platform: ',
-		'System Name: ',
-        'Release: ',
-		'Kernel Version: ',
-		'Kernel Details: ',
-		'Architecture: ',]
 
-	print("\n|==============System Information===============>\n")
-	for index, item in enumerate(platform.uname()):
-		print(criteria[index] + item)
-	print("\n|================================================>\n")
+    criteria = ['[*] Platform: ',
+		'[*] System Name: ',
+        '[*] Kernel Version: ',
+        '[*] Kernel Details: ',
+		'[*] Architecture: ',
+        '[*] Processor: ',]
 
-def run():
+    print("\n|===================| System Information |====================|\n")
+	
+    for index, item in enumerate(uname()):
+        if item == "":
+            print(f"{criteria[index]}n\\a")
+        else:
+            print(f"{criteria[index]}{item}")
+
+    print("\n|=============================================================|\n")
+
+def check_os():
 
     if os.name == 'posix' or os.name == 'linux':
         os.system('clear')
-        time.sleep(1)
+        sleep(1)
         system_info()
     elif os.name == ('nt'):
         os.system('cls')
-        time.sleep(1)
+        sleep(1)
         system_info()
     else:
         pass
 
 if __name__ == '__main__':
 
-    run()
+    check_os()
